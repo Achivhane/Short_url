@@ -1,8 +1,8 @@
 const URL = require("../Model/url");
-const { nanoid } = require("nanoid");
+const shortId = require("shortid");
 
 async function createShortURL(req, res) {
-  const shortURLID = nanoid(8);
+  const shortURLID = shortId();
   if (req.body.url) {
     await URL.create({
       shortId: shortURLID,
@@ -20,7 +20,33 @@ async function createShortURL(req, res) {
     });
   }
 }
+async function getbyShortId(req, res) {
+    const shortId = req.params.shortId;
+    const entry = await URL.findOneAndUpdate({
+        shortId
+    },
+    {
+      $push :{
+        visitedHistory:{
+            timestamp: Date.now()
+        }
+      } 
+    });
+    res.redirect(entry.redirectUrl)
+}
 
+async function getAnalyticByShortId(req, res){
+const shortId = req.params.shortId;
+const result = await URL.findOne({shortId});
+console.log(result.visitedHistory.lenght);
+return res.json({
+    message: 'success',
+    totalClicks: result.visitedHistory.length,
+    analytics: result.visitedHistory
+})
+}
 module.exports = {
   createShortURL,
-};
+  getbyShortId,
+  getAnalyticByShortId
+}
