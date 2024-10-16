@@ -4,11 +4,11 @@ const urlSchema = new mongoose.Schema(
   {
     shortId: {
       type: String,
-      unique: true,
+      unique: false,
     },
     redirectUrl: {
       type: String,
-      unique: true,
+      unique: false,
     },
     visitedHistory: [
       {

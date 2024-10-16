@@ -1,0 +1,49 @@
+<form id="form" role="search">
+  <input
+    type="text"
+    [(ngModel)]="urlObj.url"
+    placeholder="Search..."
+    aria-label="Search through site content"
+    name="url"
+  />
+  <button (click)="save()">Search</button>
+  <!-- <h1>{{ urlObj.redirectUrl }}</h1> -->
+</form>
+<!-- <ng-template #onSearch>
+  <table id="customers">
+    <tbody>
+      <tr *ngFor="let item of dataPost">
+        ID :
+        <td>{{ item._id }}</td>
+        short URL :
+        <td>{{ item.shortId }}</td>
+        Redirect URL :
+        <td>{{ item.redirectUrl }}</td>
+        createdAt :
+        <td>{{ item.createdAt }}</td>
+        updatedAt :
+        <td>{{ item.updatedAt }}</td>
+      </tr>
+    </tbody>
+  </table>
+</ng-template> -->
+<table id="customers">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>short URL</th>
+      <th>Redirect URL</th>
+      <th>createdAt</th>
+      <th>updatedAt</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of data">
+      <td>{{ item._id }}</td>
+      <td>{{ item.shortId }}</td>
+      <td>{{ item.redirectUrl }}</td>
+      <td>{{ item.createdAt }}</td>
+      <td>{{ item.updatedAt }}</td>
+    </tr>
+  </tbody>
+</table>

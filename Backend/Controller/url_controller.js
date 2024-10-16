@@ -21,32 +21,43 @@ async function createShortURL(req, res) {
   }
 }
 async function getbyShortId(req, res) {
-    const shortId = req.params.shortId;
-    const entry = await URL.findOneAndUpdate({
-        shortId
+  const shortId = req.params.shortId;
+  const entry = await URL.findOneAndUpdate(
+    {
+      shortId,
     },
     {
-      $push :{
-        visitedHistory:{
-            timestamp: Date.now()
-        }
-      } 
-    });
-    res.redirect(entry.redirectUrl)
+      $push: {
+        visitedHistory: {
+          timestamp: Date.now(),
+        },
+      },
+    }
+  );
+  res.redirect(entry.redirectUrl);
+}
+async function getAll(req, res) {
+  // const shortId = req.params.shortId;
+  const getA = await URL.find();
+  res.json({
+    message: "success",
+    Result: getA,
+  });
 }
 
-async function getAnalyticByShortId(req, res){
-const shortId = req.params.shortId;
-const result = await URL.findOne({shortId});
-console.log(result.visitedHistory.lenght);
-return res.json({
-    message: 'success',
+async function getAnalyticByShortId(req, res) {
+  const shortId = req.params.shortId;
+  const result = await URL.findOne({ shortId });
+  console.log(result.visitedHistory.lenght);
+  return res.json({
+    message: "success",
     totalClicks: result.visitedHistory.length,
-    analytics: result.visitedHistory
-})
+    analytics: result.visitedHistory,
+  });
 }
 module.exports = {
   createShortURL,
   getbyShortId,
-  getAnalyticByShortId
-}
+  getAnalyticByShortId,
+  getAll,
+};
