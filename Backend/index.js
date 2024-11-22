@@ -14,7 +14,8 @@ app.use(cors());
 app.use(express.json());
 app.use("/url", urlRoute);
 app.use("/", urlRoute);
-app.use("/analytic/:shortId", urlRoute.getAnalyticByShortId);
+app.use("/", urlRoute);
+app.use("/:_id", urlRoute);
 
 const PORT = 8001;
 
