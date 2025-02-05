@@ -40,82 +40,90 @@
     </div>
   </form>
 </div>
-
-<table id="customers">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Short URL Name</th>
-      <th>Short URL</th>
-      <th>Redirect URL</th>
-      <th>CreatedAt</th>
-      <th>UpdatedAt</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let item of data">
-      <td>{{ item._id }}</td>
-      <td>{{ item.name }}</td>
-      <td>
-        <button (click)="onClickUrl(item.shortId)">{{ item.shortId }}</button>
-      </td>
-      <td>{{ item.redirectUrl }}</td>
-      <td>{{ item.createdAt | date : "medium" }}</td>
-      <td>{{ item.updatedAt | date : "medium" }}</td>
-      <td>
-        <button
-          type="button"
-          class="btn btn-primary"
-          data-toggle="modal"
-          data-target=".bd-example-modal-sm"
-          (click)="OpenModel(item.shortId)"
-        >
-          Edit
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- <div
-  #ModelViewChild
-  class="modal fade bd-example-modal-sm"
+<div class="table-responsive">
+  <table id="customers">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>
+          Short URL Name
+          <!-- <input
+            type="text"
+            placeholder="Search..."
+            class="form-control search-field"
+            [(ngModel)]="search"
+          /> -->
+          <button
+            (click)="showBar()"
+            type="submit"
+            class="btn"
+            style="background-color: transparent"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-search"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
+              />
+            </svg>
+          </button>
+        </th>
+        <th>Short URL</th>
+        <th>Redirect URL</th>
+        <th>CreatedAt</th>
+        <th>UpdatedAt</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of data | searchPipe : search">
+        <td>{{ item._id }}</td>
+        <td>{{ item.name }}</td>
+        <td>
+          <button (click)="onClickUrl(item.shortId)">{{ item.shortId }}</button>
+        </td>
+        <td>{{ item.redirectUrl }}</td>
+        <td>{{ item.createdAt | date : "medium" }}</td>
+        <td>{{ item.updatedAt | date : "medium" }}</td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-toggle="modal"
+            data-target=".bd-example-modal-sm"
+            (click)="OpenModel(item.shortId)"
+          >
+            Edit
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div
+  class="popover1"
+  data-toggle="popover"
+  data-placement="bottom"
   tabindex="-1"
   role="dialog"
-  aria-labelledby="mySmallModalLabel"
-  aria-hidden="true"
-  style="display: none"
+  #searchBar
 >
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content modal-header">
-      <div class="modal-header">Edit</div>
-      <button type="button" class="close" data-dismiss="modal">&times;</button>
-      <h4 class="modal-title">Update the Details</h4>
-    </div>
-    <div class="modal-body">
-      <form [formGroup]="editform" (ngSubmit)="editSave(editform)">
-        <div>
-          <label>Redirect URL:</label>
-          <input
-            type="text"
-            formControlName="redirectUrl"
-            class="form-control"
-          />
-        </div>
-        <div class="modal-footer">
-          <div>
-            <button type="submit">Update</button>
-          </div>
-          <button type="button" class="btn btn-default" data-dismiss="modal">
-            Close
-          </button>
-        </div>
-      </form>
-    </div>
+  <div class="search-box">
+    <input
+      type="text"
+      nz-input
+      placeholder="Search name"
+      [(ngModel)]="search"
+    />
+    <!-- <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">Search</button> -->
+    <button nz-button nzSize="small" (click)="reset()">Reset</button>
   </div>
-</div> -->
-
+</div>
 <div class="modal" tabindex="-1" role="dialog" #ModelViewChild>
   <div class="modal-dialog" role="document">
     <div class="modal-content">

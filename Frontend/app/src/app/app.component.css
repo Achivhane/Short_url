@@ -52,3 +52,30 @@ input {
   width: 65%;
   display: inline;
 }
+.search-box {
+  padding: 8px;
+}
+
+.search-box input {
+  width: 188px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.search-box button {
+  width: 90px;
+}
+.search-button {
+  margin-right: 8px;
+}
+.popover1 {
+  /* top: 250 !important;
+  left: 150 !important; */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1060;
+  display: none;
+  max-width: 276px;
+  padding: 1px;
+}

@@ -18,6 +18,7 @@ import {
 })
 export class AppComponent implements OnInit {
   @ViewChild('ModelViewChild') modal: ElementRef | undefined;
+  @ViewChild('searchBar') modal1: ElementRef | undefined;
   editform: FormGroup;
   constructor(
     private service: ShortIdService,
@@ -27,9 +28,9 @@ export class AppComponent implements OnInit {
     this.editform = this.fb.group({
       redirectUrl: [''],
       name: [''],
-      // city: ['', Validators.minLength(5)],
     });
   }
+  search: any;
   title = 'app';
   data: any;
   dataPost: any;
@@ -117,5 +118,13 @@ export class AppComponent implements OnInit {
     });
     this.closeModal();
     location.reload();
+  }
+  showBar() {
+    if (this.modal1) {
+      this.modal1.nativeElement.style.display = 'block';
+    }
+  }
+  reset() {
+    this.search = ' ';
   }
 }
